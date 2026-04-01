@@ -12,11 +12,18 @@ fn greet(name: &str) -> PyResult<String> {
     Ok(format!("Hello, {}!", name))
 }
 
+/// Say some string.
+#[pyfunction]
+fn say(name: &str) {
+    println!("{}", name);
+}
+
 /// A Python module implemented in Rust.
 #[pymodule]
 fn my_rust_module(_py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     // Add the functions to the module
     m.add_function(wrap_pyfunction!(sum_as_string, m)?)?;
     m.add_function(wrap_pyfunction!(greet, m)?)?;
+    m.add_function(wrap_pyfunction!(say, m)?)?;
     Ok(())
 }

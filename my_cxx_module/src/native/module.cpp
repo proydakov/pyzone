@@ -4,9 +4,14 @@
  */
 
 #include <cstdint>
+#include <iostream>
 #include <pybind11/pybind11.h>
 
 using pybind11::operator""_a;
+
+void say(const std::string& s) {
+    std::cout << s << std::endl;
+}
 
 std::string sum_as_string(int64_t a, int64_t b) {
     return std::to_string(a + b);
@@ -18,8 +23,14 @@ std::string greet(const std::string& name) {
 }
 
 PYBIND11_MODULE(MODULE_NAME, m) {
-    m.doc()               = "Module for adding integers";
+    m.doc()               = "Module for string operations.";
     m.attr("__version__") = VERSION_INFO;
+
+    m.def("say",
+          say,
+	  "s"_a,
+	  "Say input string"
+    );
 
     m.def("sum_as_string",
 	  sum_as_string,
