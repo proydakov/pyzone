@@ -3,14 +3,25 @@
  *          integers.
  */
 
+#include <pybind11/pybind11.h>
+#include <pybind11/pytypes.h>
+#include <pybind11/stl.h>
+
+#include <vector>
 #include <cstdint>
 #include <iostream>
-#include <pybind11/pybind11.h>
-
-using pybind11::operator""_a;
 
 void say(const std::string& s) {
     std::cout << s << std::endl;
+}
+
+void handle_bytes(const pybind11::bytes bytes) {
+    std::string_view view = static_cast<std::string_view>(bytes);
+    std::cout << "handle bytes [" << view.size() << "]" << std::endl;
+}
+
+void handle_bytearray(const pybind11::bytearray bytes) {
+    std::cout << "handle bytearray [" << bytes.size() << "]" << std::endl;
 }
 
 std::string sum_as_string(int64_t a, int64_t b) {
@@ -28,19 +39,26 @@ PYBIND11_MODULE(MODULE_NAME, m) {
 
     m.def("say",
           say,
-	  "s"_a,
 	  "Say input string"
+    );
+
+    m.def("handle_bytes",
+          handle_bytes,
+	  "Method with a bytes input"
+    );
+
+    m.def("handle_bytearray",
+          handle_bytearray,
+	  "Method with a bytearray input"
     );
 
     m.def("sum_as_string",
 	  sum_as_string,
-	  "a"_a, "b"_a,
 	  "Sum two integers and return string"
     );
 
     m.def("greet",
         greet,
-        "name"_a,
         "Say hello"
     );
 }

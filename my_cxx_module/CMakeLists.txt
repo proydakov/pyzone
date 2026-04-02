@@ -12,11 +12,7 @@ if (DEFINED PY_BUILD_CMAKE_PROJECT_VERSION)
 endif()
 
 # Find the Python interpreter and the development files
-if (CMAKE_CROSSCOMPILING AND NOT (APPLE AND "$ENV{CIBUILDWHEEL}" STREQUAL "1"))
-    find_package(Python3 REQUIRED COMPONENTS Development.Module)
-else()
-    find_package(Python3 REQUIRED COMPONENTS Interpreter Development.Module)
-endif()
+find_package(Python3 REQUIRED COMPONENTS Interpreter Development.Module)
 
 # Find the pybind11 package
 include(cmake/QueryPythonForPybind11.cmake)
@@ -34,5 +30,6 @@ if (CMAKE_SYSTEM_NAME MATCHES "Linux")
 endif()
 
 # Install the Python module
-install(TARGETS module EXCLUDE_FROM_ALL COMPONENT python_modules DESTINATION ${PY_BUILD_CMAKE_IMPORT_NAME})
-
+if (PY_BUILD_CMAKE_IMPORT_NAME)
+    install(TARGETS module EXCLUDE_FROM_ALL COMPONENT python_modules DESTINATION ${PY_BUILD_CMAKE_IMPORT_NAME})
+endif (PY_BUILD_CMAKE_IMPORT_NAME)
