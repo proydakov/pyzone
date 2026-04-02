@@ -14,9 +14,13 @@ endif()
 # Find the Python interpreter and the development files
 find_package(Python3 REQUIRED COMPONENTS Interpreter Development.Module)
 
-# Find the pybind11 package
-include(cmake/QueryPythonForPybind11.cmake)
-find_pybind11_python_first()
+include(FetchContent)
+FetchContent_Declare(
+    pybind11
+    URL https://github.com/pybind/pybind11/archive/refs/tags/v3.0.3.tar.gz
+    URL_HASH MD5=e7f74c566e75924d02482333666a87d6
+)
+FetchContent_MakeAvailable(pybind11)
 
 # Compile the example Python module
 pybind11_add_module(module MODULE "src/native/module.cpp")
