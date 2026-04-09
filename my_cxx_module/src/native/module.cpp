@@ -4,6 +4,7 @@
 
 #include <pybind11/pybind11.h>
 #include <pybind11/pytypes.h>
+#include <pybind11/numpy.h>
 #include <pybind11/stl.h>
 
 #include <string>
@@ -137,6 +138,22 @@ void handle_bytearray(const pybind11::bytearray bytes) {
     std::cout << "handle bytearray [" << bytes.size() << "]" << std::endl;
 }
 
+void handle_list_num(const std::vector<int64_t>& list) {
+    std::cout << "list(i64)[" << list.size() << "]";
+    for(auto const e : list) {
+        std::cout << " " << e;
+    }
+    std::cout << std::endl;
+}
+
+void handle_list_real(const std::vector<double>& list) {
+    std::cout << "list(f64)[" << list.size() << "]";
+    for(auto const e : list) {
+        std::cout << " " << e;
+    }
+    std::cout << std::endl;
+}
+
 std::string sum_as_string(int64_t a, int64_t b) {
     return std::to_string(a + b);
 }
@@ -163,6 +180,16 @@ PYBIND11_MODULE(MODULE_NAME, m) {
     m.def("handle_bytearray",
         handle_bytearray,
         "Method with a bytearray input"
+    );
+
+    m.def("handle_list_num",
+        handle_list_num,
+        "Method with a list of integers input"
+    );
+
+    m.def("handle_list_real",
+        handle_list_real,
+        "Method with a list of reals input"
     );
 
     m.def("sum_as_string",
