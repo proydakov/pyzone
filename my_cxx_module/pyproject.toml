@@ -1,6 +1,6 @@
 [project]
 name = "my_cxx_module" # Name on PyPI
-description = ""
+description = "An example of a native C++ extension for python3."
 readme = "README.md"
 requires-python = ">=3.7"
 license = "MIT"
@@ -8,8 +8,6 @@ license-files = ["LICENSE"]
 authors = [{ "name" = "Evgeny Proydakov", "email" = "e.proydakov@gmail.com" }]
 keywords = ["example", "addition", "subtraction", "pybind11"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
@@ -39,19 +37,19 @@ name = "my_cxx_module" # Import name
 directory = "src"
 
 [tool.py-build-cmake.sdist]
-include = ["CMakeLists.txt", "cmake/*.cmake", "src/ext"]
+include = ["CMakeLists.txt", "cmake/*.cmake", "src/native"]
 exclude = []
 
 [tool.py-build-cmake.cmake]
-minimum_version = "3.18"
+minimum_version = "3.25"
 build_type = "Release"
 source_path = "." # Containing CMakeLists.txt
-options = {}
 args = ["-Wdev"]
 build_args = ["-j"]
 build_tool_args = []
 install_args = ["--verbose"]
 install_components = ["python_modules"]
+options = {}
 env = {}
 
 [tool.py-build-cmake.linux.cmake] # Linux-specific options
