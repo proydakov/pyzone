@@ -1,7 +1,10 @@
+import sys
 import cv2
 
 # Open the default camera
 cam_index = 0
+if len(sys.argv) == 2:
+    cam_index = int(sys.argv[1])
 
 cam = cv2.VideoCapture(cam_index)
 
