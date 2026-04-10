@@ -24,6 +24,7 @@ FetchContent_MakeAvailable(pybind11)
 
 # Compile the example Python module
 pybind11_add_module(module MODULE "src/native/module.cpp")
+target_compile_definitions(module PRIVATE PYBIND11_HAS_STRING_VIEW)
 set_target_properties(module PROPERTIES DEBUG_POSTFIX "${CMAKE_DEBUG_POSTFIX}${PYTHON_MODULE_DEBUG_POSTFIX}")
 target_compile_definitions(module PRIVATE MODULE_NAME=$<TARGET_FILE_BASE_NAME:module> VERSION_INFO="${PY_FULL_VERSION}")
 
