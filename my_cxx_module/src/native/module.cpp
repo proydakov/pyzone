@@ -165,6 +165,7 @@ std::string greet(const std::string& name) {
 
 PYBIND11_MODULE(MODULE_NAME, m) {
     m.doc()               = "Module for string operations.";
+
     m.attr("__version__") = VERSION_INFO;
 
     m.def("say",
