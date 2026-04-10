@@ -11,10 +11,13 @@ cam = cv2.VideoCapture(cam_index)
 # Get the default frame width and height
 frame_width = int(cam.get(cv2.CAP_PROP_FRAME_WIDTH))
 frame_height = int(cam.get(cv2.CAP_PROP_FRAME_HEIGHT))
+fps = int(cam.get(cv2.CAP_PROP_FPS))
+
+print("camera:", cam_index, "frame_width:", frame_width, "frame_height:", frame_height, "fps:", fps)
 
 # Define the codec and create VideoWriter object
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-out = cv2.VideoWriter('output.mp4', fourcc, 20.0, (frame_width, frame_height))
+out = cv2.VideoWriter('output.mp4', fourcc, fps, (frame_width, frame_height))
 
 while True:
     ret, frame = cam.read()
