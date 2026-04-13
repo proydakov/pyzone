@@ -7,6 +7,9 @@ if len(sys.argv) == 2:
     cam_index = int(sys.argv[1])
 
 cam = cv2.VideoCapture(cam_index)
+if not cam.isOpened():
+    print("can't open camera:", cam_index)
+    sys.exit(1)
 
 # Get the default frame width and height
 frame_width = int(cam.get(cv2.CAP_PROP_FRAME_WIDTH))
