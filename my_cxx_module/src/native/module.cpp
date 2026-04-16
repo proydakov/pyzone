@@ -225,12 +225,12 @@ PYBIND11_MODULE(MODULE_NAME, m) {
 
     pybind11::class_<IRobot>(m, "IRobot") // // Abstract, do not add constructor
         .def_readonly("name", &IRobot::name)
+        .def("walk", &IRobot::Walk)
+        .def("talk", &IRobot::Talk)
     ;
 
     pybind11::class_<T800, IRobot>(m, "T800")
         .def(pybind11::init<std::string, int, ISpeech &>()) // constructor
-        .def("walk", &T800::Walk)
-        .def("talk", &T800::Talk)
         // read-write public data memeber
         // you can use def_readonly as well.
         .def_readwrite("year", &T800::year)
@@ -238,8 +238,6 @@ PYBIND11_MODULE(MODULE_NAME, m) {
 
     pybind11::class_<T1000, IRobot>(m, "T1000")
         .def(pybind11::init<std::string, double, ISpeech &>()) // constructor
-        .def("walk", &T1000::Walk) // method
-        .def("talk", &T1000::Talk) // method
         // Define property with getter and setter
         .def_property("height", &T1000::GetHeight, &T1000::SetHeight)
         .def("get_data", &T1000::GetData)
