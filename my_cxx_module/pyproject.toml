@@ -2,24 +2,21 @@
 name = "my_cxx_module" # Name on PyPI
 description = "An example of a native C++ extension for python3."
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.11"
 license = "MIT"
 license-files = ["LICENSE"]
-authors = [{ "name" = "Evgeny Proydakov", "email" = "e.proydakov@gmail.com" }]
+authors = [{ "name" = "Evgeny Proydakov", "email" = "proydakov.e.a@informatic.ru" }]
 keywords = ["example", "addition", "subtraction", "pybind11"]
 classifiers = [
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Operating System :: POSIX :: Linux",
     "Operating System :: Microsoft :: Windows",
     "Operating System :: MacOS",
 ]
-urls = { "Documentation" = "https://tttapa.github.io/" }
+urls = { "Documentation" = "https://github.com/tttapa/py-build-cmake" }
 dependencies = []
 dynamic = ["version"]
 
@@ -27,9 +24,7 @@ dynamic = ["version"]
 test = ["pytest>=7.2.0,<9"]
 
 [build-system]
-requires = [
-    "py-build-cmake~=0.5.0",
-]
+requires = ["py-build-cmake~=0.5.0",]
 build-backend = "py_build_cmake.build"
 
 [tool.py-build-cmake.module]
@@ -37,7 +32,7 @@ name = "my_cxx_module" # Import name
 directory = "src"
 
 [tool.py-build-cmake.sdist]
-include = ["CMakeLists.txt", "cmake/*.cmake", "src/*"]
+include = ["CMakeLists.txt", "src/*"]
 exclude = []
 
 [tool.py-build-cmake.cmake]
