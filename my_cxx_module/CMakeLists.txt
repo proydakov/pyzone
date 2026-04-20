@@ -11,15 +11,15 @@ if (DEFINED PY_BUILD_CMAKE_PROJECT_VERSION)
     endif()
 endif()
 
-# Find the Python interpreter and the development files
-find_package(Python3 REQUIRED COMPONENTS Interpreter Development.Module)
+# Find the Python development files
+find_package(Python3 REQUIRED COMPONENTS Development.Module)
 
 include(FetchContent)
 
 FetchContent_Declare(
     pybind11
-    URL https://github.com/pybind/pybind11/archive/refs/tags/v3.0.3.tar.gz
-    URL_HASH MD5=e7f74c566e75924d02482333666a87d6
+    URL https://github.com/pybind/pybind11/archive/refs/tags/v3.0.4.tar.gz
+    URL_HASH MD5=933fa1b6b1fe34c9945ecb3fe67f5c4b
 )
 FetchContent_MakeAvailable(pybind11)
 
