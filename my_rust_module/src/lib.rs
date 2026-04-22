@@ -120,6 +120,8 @@ impl T1000 {
 #[pymodule]
 fn my_rust_module(_py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
 
+    m.add("__version__", env!("CARGO_PKG_VERSION"))?;
+
     // Add the functions to the module
     m.add_function(wrap_pyfunction!(sum_as_string, m)?)?;
     m.add_function(wrap_pyfunction!(greet, m)?)?;
