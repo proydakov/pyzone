@@ -163,6 +163,43 @@ std::string greet(const std::string& name) {
     return greeting;
 }
 
+class Config
+{
+public:
+    std::string name;
+    std::int32_t age;
+    std::int32_t height;
+};
+
+class ConfigBuilder
+{
+public:
+    std::string name;
+    std::int32_t age;
+    std::int32_t height;
+
+    ConfigBuilder()
+    {
+    }
+
+    Config to_config() const
+    {
+        if(name.empty()) {
+            throw std::runtime_error("Invalid name");
+        }
+
+        if(age < 1) {
+            throw std::runtime_error("Invalid age");
+        }
+
+        if(height < 1) {
+            throw std::runtime_error("Invalid height");
+        }
+
+        return Config{name, age, height};
+    }
+};
+
 PYBIND11_MODULE(MODULE_NAME, m) {
     m.doc()               = "Module for string operations.";
 
@@ -244,4 +281,18 @@ PYBIND11_MODULE(MODULE_NAME, m) {
     ;
 
     m.def("move", &Move);
+
+    pybind11::class_<Config>(m, "Config")
+        .def_readonly("name", &Config::name)
+        .def_readonly("age", &Config::age)
+        .def_readonly("height", &Config::height)
+    ;
+
+    pybind11::class_<ConfigBuilder>(m, "ConfigBuilder")
+        .def(pybind11::init<>()) // constructor
+        .def_readwrite("name", &ConfigBuilder::name)
+        .def_readwrite("age", &ConfigBuilder::age)
+        .def_readwrite("height", &ConfigBuilder::height)
+        .def("to_config", &ConfigBuilder::to_config)
+    ;
 }
