@@ -163,7 +163,7 @@ std::string greet(const std::string& name) {
     return greeting;
 }
 
-class Config
+class Config final
 {
 public:
     std::string name;
@@ -171,7 +171,7 @@ public:
     std::int32_t height;
 };
 
-class ConfigBuilder
+class ConfigBuilder final
 {
 public:
     std::string name;
@@ -179,6 +179,13 @@ public:
     std::int32_t height;
 
     ConfigBuilder()
+    {
+    }
+
+    ConfigBuilder(std::string iname, std::int32_t iage, std::int32_t iheight)
+        : name(std::move(iname))
+        , age(iage)
+        , height(iheight)
     {
     }
 
@@ -288,8 +295,12 @@ PYBIND11_MODULE(MODULE_NAME, m) {
         .def_readonly("height", &Config::height)
     ;
 
+    using namespace pybind11::literals;
+
     pybind11::class_<ConfigBuilder>(m, "ConfigBuilder")
         .def(pybind11::init<>()) // constructor
+        .def(pybind11::init<std::string, std::int32_t, std::int32_t>(),
+            "name"_a = "", "age"_a = 0, "height"_a = 0) // constructor
         .def_readwrite("name", &ConfigBuilder::name)
         .def_readwrite("age", &ConfigBuilder::age)
         .def_readwrite("height", &ConfigBuilder::height)
