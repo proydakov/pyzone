@@ -258,7 +258,7 @@ PYBIND11_MODULE(MODULE_NAME, m) {
     // Add the base class to work polymorphism.
     // For example T800 constructed with ISpeech, if
     // we don't declare it here, python doesn't allow
-    // injectign SpeechV1 to T800 constructor.
+    // injecting SpeechV1 to T800 constructor.
     pybind11::class_<SpeechV1, ISpeech>(m, "SpeechV1")
         .def(pybind11::init<std::string>()) //Constructor
     ;
